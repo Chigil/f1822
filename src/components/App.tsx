@@ -1,12 +1,11 @@
-import React from 'react';
-import './App.css';
-import Counter from "./Counter/Counter";
+import UserCards from "./Users/UserCards";
+import React from "react";
 
 function App() {
+ 
   return (
-    <div className="App">
-      <h3>This is React Applictaion</h3>
-      <Counter/>
+    <div className="App container">
+        <UserCards/>
     </div>
   );
 }
