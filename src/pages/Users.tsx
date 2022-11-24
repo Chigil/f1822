@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AddUser from "../components/Users/AddUser";
 import SearchUsers from "../components/Users/SearchUsers";
 import {useSearch} from "../hooks/useSearch";
@@ -11,6 +11,11 @@ const Users = () => {
     const [search, setSearch] = useState<string>('');
     const [isShowEdit, setIsShowEdit] = useState<boolean>(false);
     const searchedUsers = useSearch(users, search, 'name');
+
+    useEffect(() => {
+        getAllUsers();
+    },[]);
+
     const getAllUsers = async () => {
         // ASYNC AWAIT
         try {
@@ -29,14 +34,19 @@ const Users = () => {
     return (
         <div className="row row-cols-1 row-cols-md-3 g-4 mt-5">
             <h1 className="text-center w-100">Users page</h1>
-            <button className="btn btn-success" onClick={() => getAllUsers()}>Get All users</button>
             <div>
                 <button className="btn btn-success" onClick={() => setIsShowEdit(!isShowEdit)}>Show Form for Add user
                 </button>
                 {isShowEdit && <AddUser users={users} setUsers={setUsers}/>}
             </div>
             <SearchUsers setSearch={setSearch}/>
-            <UserCards users={searchedUsers} setUsers={setUsers} />
+            {
+                users.length
+                    ?
+                    <UserCards users={searchedUsers} setUsers={setUsers} />
+                    :
+                    <h1>Users not found...</h1> //spinner
+            }
         </div>
     );
 };
