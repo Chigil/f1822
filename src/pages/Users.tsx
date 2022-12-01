@@ -33,7 +33,7 @@ const Users = () => {
     };
     return (
         <div className="row row-cols-1 row-cols-md-3 g-4 mt-5">
-            <h1 className="text-center w-100">Users page</h1>
+            <h1 className="text-center w-100">Page for all users</h1>
             <div>
                 <button className="btn btn-success" onClick={() => setIsShowEdit(!isShowEdit)}>Show Form for Add user
                 </button>

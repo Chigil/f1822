@@ -20,8 +20,10 @@ const Posts = ({ userId = 0 }: { userId?: number }) => {
         <div>
             {userId === 0 ? <h1>THIS is Posts page!!!</h1> : <h3>User posts:</h3>}
             {posts.map(post =>
-                <div key={post.id}>
-                    {post.body}
+                <div className="card my-4" key={post.id}>
+                    <div className="card-body">
+                        <h4>{post.body}</h4>
+                    </div>
                 </div>
             )}
         </div>

@@ -11,7 +11,7 @@ const User = () => {
         username: '',
         phone: '',
         email: '',
-        website: ''
+        website: '',
     });
     const params = useParams();
     const userId = params.id ? +params.id : 0;
@@ -30,14 +30,16 @@ const User = () => {
     console.log(user);
     return (
         <div>
-            <h1>I'am single cool User </h1>
-            {Object.keys(user).map(field => {
-                return <input value={user[field as keyof Omit<IUser, 'address' | 'company'>]}
-                              onChange={event => setUser({...user, [field]: event.target.value})}
-                />
-            })}
+            <h1>User: {user.username} user info:</h1>
+            <div className="card col-sm-6">
+                {Object.keys(user).map(field => {
+                    return <input className="form-control" value={user[field as keyof Omit<IUser, 'address' | 'company'>]}
+                                  onChange={event => setUser({...user, [field]: event.target.value})}
+                    />
+                })}
+            </div>
+            <button className="btn mt-2 btn-success" onClick={() => updateUserInfo()}>Update user info</button>
             <Posts userId={userId} />
-            <button className="btn btn-success" onClick={() => updateUserInfo()}>Update user info</button>
         </div>
     );
 };
