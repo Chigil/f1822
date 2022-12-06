@@ -1,17 +1,36 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import http from "../http";
 
 const Posts = ({ userId = 0 }: { userId?: number }) => {
     const [posts, setPosts] = useState<any[]>([]);
+    const [page, setPage] = useState<number>(0);
+    const [totalPage, setTotalPage] = useState<number>(0);
+    const limit = 10;
+    const observer = useRef(null);
+    const trigger = useRef(null);
+
     useEffect(() => {
         getAllPosts();
     },[]);
-
+    console.log(trigger);
     const getAllPosts = async () => {
         try {
-            const responseData = await http.get(userId === 0 ? '/posts' : `/posts?userId=${userId}`);
-            const posts = responseData.data;
-            setPosts(posts);
+            if (userId === 0) {
+                const responseData = await http.get(`/posts?userId=${userId}`);
+                setPosts(responseData.data);
+            }
+            const allPosts = await http.get('posts');
+            setTotalPage(allPosts.data.length / limit);
+            const responseData = await http.get('/posts', {
+                params: {
+                    _page: page,
+                    _limit: limit
+                }
+
+            });
+            const newPosts = responseData.data;
+            console.log(newPosts);
+            setPosts([...posts, ...newPosts]);
         } catch (err) {
             alert(err);
         }
@@ -26,6 +45,7 @@ const Posts = ({ userId = 0 }: { userId?: number }) => {
                     </div>
                 </div>
             )}
+            <div ref={trigger}>I'am hear!</div>
         </div>
     );
 };

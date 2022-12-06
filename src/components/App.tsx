@@ -1,15 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import Navigation from "./Navigation";
 import AppRoutes from "./AppRoutes";
+import Context from '../context/context';
 
 function App() {
+    const [isLogin, setIsLogin] = useState<boolean>(false);
     return (
-        <div className="App">
-            <Navigation/>
-            <div className="container">
-                <AppRoutes/>
+        <Context.Provider value={{ isLogin, setIsLogin }}>
+            <div className="App">
+                <Navigation/>
+                <div className="container">
+                    <AppRoutes/>
+                </div>
             </div>
-        </div>
+        </Context.Provider>
     );
 }
 

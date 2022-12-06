@@ -1,7 +1,9 @@
-import React, {ChangeEvent, FormEvent, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useContext, useState} from 'react';
 import http from "../http";
+import Context from "../context/context";
 
 const Login = () => {
+    const { setIsLogin } = useContext(Context);
     const [loginData, setLoginData] = useState<{ username: string; password: string }>({
         username: 'mor_2314',
         password: '83r5^_'
@@ -17,6 +19,8 @@ const Login = () => {
             const isLoginData = await http.post('https://fakestoreapi.com/auth/login', loginData);
             if (isLoginData.data) {
                 alert('Welcome!');
+                localStorage.setItem('token', isLoginData.data.token);
+                setIsLogin(true);
             }
         } catch (err) {
             console.log(err);

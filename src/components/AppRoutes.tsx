@@ -1,13 +1,21 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import Users from "../pages/Users";
 import Posts from "../pages/Posts";
 import Photos from "../pages/Photos";
 import User from "../pages/User";
 import Login from "./Login";
+import Context from "../context/context";
 
 const AppRoutes = () => {
-    const [isLogin, setIsLogin] = useState<boolean>(false);
+    const {isLogin, setIsLogin} = useContext(Context);
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            return setIsLogin(true);
+        }
+    }, []);
+
     return (
         isLogin ?
             <Routes>

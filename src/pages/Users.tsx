@@ -5,6 +5,7 @@ import {useSearch} from "../hooks/useSearch";
 import http from "../http";
 import {IUser} from "../components/Users/interfaces";
 import UserCards from "../components/Users/UserCards";
+import Loader from "../components/Loader";
 
 const Users = () => {
     const [users, setUsers] = useState<IUser[]>([]);
@@ -45,7 +46,7 @@ const Users = () => {
                     ?
                     <UserCards users={searchedUsers} setUsers={setUsers} />
                     :
-                    <h1>Users not found...</h1> //spinner
+                    <Loader />
             }
         </div>
     );
