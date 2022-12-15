@@ -1,24 +1,13 @@
-import React, { SetStateAction } from "react";
+import React from "react";
 import { IUser } from "./interfaces";
-import http from "../../http";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { deleteUser } from "../../store/action-creator/user";
 
-const UserCards = ({
-  users,
-  setUsers,
-}: {
-  users: IUser[];
-  setUsers: React.Dispatch<SetStateAction<IUser[]>>;
-}) => {
-  const deleteUser = async (id: number) => {
-    const confirm = window.confirm("Do you want delete this user?");
-    if (confirm) {
-      const deleteUser = await http.delete(`/users/${id}`);
-      if (deleteUser.status === 200) {
-        setUsers(users.filter((user) => user.id !== id));
-      }
-    }
-  };
+const UserCards = ({ users }: { users: IUser[] }) => {
+  const dispatch = useDispatch();
+  const deleteCurrentUser = bindActionCreators(deleteUser, dispatch);
   return (
     <>
       {users.map((user) => (
@@ -36,7 +25,7 @@ const UserCards = ({
             <div className="card-footer">
               <button
                 className="btn btn-danger"
-                onClick={() => deleteUser(user.id)}
+                onClick={() => deleteCurrentUser(user.id)}
               >
                 Delete this user
               </button>
