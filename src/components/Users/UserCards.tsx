@@ -1,13 +1,11 @@
 import React from "react";
-import { IUser } from "./interfaces";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
 import { deleteUser } from "../../store/action-creator/user";
+import { useActionCreator } from "../../hooks/useActionCreator";
+import { IUser } from "../../store/types/user";
 
 const UserCards = ({ users }: { users: IUser[] }) => {
-  const dispatch = useDispatch();
-  const deleteCurrentUser = bindActionCreators(deleteUser, dispatch);
+  const { deleteUser } = useActionCreator();
   return (
     <>
       {users.map((user) => (
@@ -25,7 +23,7 @@ const UserCards = ({ users }: { users: IUser[] }) => {
             <div className="card-footer">
               <button
                 className="btn btn-danger"
-                onClick={() => deleteCurrentUser(user.id)}
+                onClick={() => deleteUser(user.id)}
               >
                 Delete this user
               </button>

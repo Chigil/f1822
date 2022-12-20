@@ -1,14 +1,18 @@
+import { UserAction, UserActionType, UserState } from "../types/user";
+
+const { GET_USERS, DELETE_USER_BY_ID } = UserActionType;
+
 export const userReducer = (
-  state = { users: [] },
-  action: { type: string; payload: any },
+  state: UserState = { users: [] },
+  action: UserAction,
 ) => {
   switch (action.type) {
-    case "GET_USERS":
+    case GET_USERS:
       return { users: action.payload };
-    case "DELETE_USER_BY_ID":
+    case DELETE_USER_BY_ID:
       return {
         users: state.users.filter(
-          (user: { id: number }) => user.id !== action.payload,
+          (user: { id: number }) => user.id !== action.payload.id,
         ),
       };
     default:
