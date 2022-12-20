@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import http from "../http";
 import { useParams } from "react-router-dom";
-import { IUser } from "../components/Users/interfaces";
+
 import Posts from "./Posts";
+import { IUser } from "../store/types/user";
 
 const User = () => {
   const [user, setUser] = useState<IUser>({

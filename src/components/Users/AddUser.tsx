@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import http from "../../http";
 import { USERS } from "./users";
-import { IUser } from "./interfaces";
+import { IUser } from "../../store/types/user";
 
 const AddUser = ({
   users,
@@ -11,6 +11,7 @@ const AddUser = ({
   setUsers: React.Dispatch<IUser[]>;
 }) => {
   const initialValue = {
+    id: 0,
     name: "",
     username: "",
     phone: "",
@@ -18,7 +19,7 @@ const AddUser = ({
     website: "",
   };
 
-  const [userValue, setUserValue] = useState<any>(initialValue);
+  const [userValue, setUserValue] = useState<IUser>(initialValue);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const field = event.target.id;
@@ -47,7 +48,7 @@ const AddUser = ({
             required
             id={field}
             type={field === "email" ? "email" : "text"}
-            value={userValue[field]}
+            value={userValue[field as keyof Pick<IUser, "name" | "username" | "phone" | "email" | "website">]}
             placeholder={`Input user ${field}`}
             onChange={(event) => onChange(event)}
           />

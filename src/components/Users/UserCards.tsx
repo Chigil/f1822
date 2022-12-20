@@ -23,7 +23,7 @@ const UserCards = ({ users }: { users: IUser[] }) => {
             <div className="card-footer">
               <button
                 className="btn btn-danger"
-                onClick={() => deleteUser(user.id)}
+                onClick={() => deleteUser(user.id || 0)}
               >
                 Delete this user
               </button>

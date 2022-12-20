@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import SearchUsers from "../components/Users/SearchUsers";
 import { useSearch } from "../hooks/useSearch";
-import { IUser } from "../components/Users/interfaces";
 import UserCards from "../components/Users/UserCards";
 import Loader from "../components/Loader";
 import { useSelector } from "react-redux";
 import { getAllUsers } from "../store/action-creator/user";
 import { useActionCreator } from "../hooks/useActionCreator";
+import { IUser } from "../store/types/user";
 
 const Users = () => {
   // const [users, setUsers] = useState<IUser[]>([]);
@@ -21,7 +21,6 @@ const Users = () => {
   useEffect(() => {
     getAllUsers();
   }, []);
-
   return (
     <div className="row row-cols-1 row-cols-md-3 g-4 mt-5">
       <h1 className="text-center w-100">Page for all users</h1>

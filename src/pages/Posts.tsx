@@ -7,8 +7,8 @@ const Posts = ({ userId = 0 }: { userId?: number }) => {
   const TOTAL_PAGE = 10;
   const [loading, setLoading] = useState<boolean>(false);
   const limit = 10;
-  const observer = useRef<any>(null);
-  const trigger = useRef<any>(null);
+  const observer = useRef<IntersectionObserver | null>(null);
+  const trigger = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (userId) return;
     if (page >= TOTAL_PAGE) return;
@@ -19,8 +19,10 @@ const Posts = ({ userId = 0 }: { userId?: number }) => {
           setPage(page + 1);
         }
       };
-      observer.current = new IntersectionObserver(callback);
-      observer.current.observe(trigger.current);
+        observer.current = new IntersectionObserver(callback);
+        if (trigger.current) {
+          observer.current.observe(trigger.current);
+        }
     }
   }, [loading]);
 
