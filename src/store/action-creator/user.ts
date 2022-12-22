@@ -1,8 +1,8 @@
 import http from "../../http";
-import { UserAction, UserActionType } from "../types/user";
+import { IUser, UserAction, UserActionType } from "../types/user";
 import { Dispatch } from "redux";
 
-const { GET_USERS, DELETE_USER_BY_ID } = UserActionType;
+const { GET_USERS, DELETE_USER_BY_ID, ADD_USER } = UserActionType;
 
 export const getAllUsers = () => {
   return async (dispatch: Dispatch<UserAction>) => {
@@ -15,6 +15,19 @@ export const getAllUsers = () => {
     }
   };
 };
+
+export const addUser = (user: IUser) => {
+  return async (dispatch: Dispatch<UserAction>) => {
+    const responseData = await http.post("/users", user);
+    console.log(responseData);
+    try {
+      dispatch({ type: ADD_USER, payload: responseData.data });
+    } catch (err) {
+      alert(err);
+    }
+  };
+};
+
 
 export const deleteUser = (id: number) => {
   return async (dispatch: Dispatch<UserAction>) => {

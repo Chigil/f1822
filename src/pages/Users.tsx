@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { getAllUsers } from "../store/action-creator/user";
 import { useActionCreator } from "../hooks/useActionCreator";
 import { IUser } from "../store/types/user";
+import AddUser from "../components/Users/AddUser";
 
 const Users = () => {
   // const [users, setUsers] = useState<IUser[]>([]);
@@ -17,7 +18,6 @@ const Users = () => {
   const [search, setSearch] = useState<string>("");
   const [isShowEdit, setIsShowEdit] = useState<boolean>(false);
   const searchedUsers = useSearch(users, search, "name");
-  console.log(getAllUsers);
   useEffect(() => {
     getAllUsers();
   }, []);
@@ -31,12 +31,9 @@ const Users = () => {
         >
           Show Form for Add user
         </button>
-        {/*{isShowEdit && (*/}
-        {/*  <AddUser*/}
-        {/*    users={users}*/}
-        {/*    setUsers={dispatch({ type: "GET_USERS", payload: users })}*/}
-        {/*  />*/}
-        {/*)}*/}
+        {isShowEdit && (
+          <AddUser />
+        )}
       </div>
       <SearchUsers setSearch={setSearch} />
       {users.length ? <UserCards users={searchedUsers} /> : <Loader />}

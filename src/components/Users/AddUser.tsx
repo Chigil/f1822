@@ -1,15 +1,9 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import http from "../../http";
-import { USERS } from "./users";
 import { IUser } from "../../store/types/user";
+import { useActionCreator } from "../../hooks/useActionCreator";
+import { useSelector } from "react-redux";
 
-const AddUser = ({
-  users,
-  setUsers,
-}: {
-  users: IUser[];
-  setUsers: React.Dispatch<IUser[]>;
-}) => {
+const AddUser = () => {
   const initialValue = {
     id: 0,
     name: "",
@@ -18,26 +12,24 @@ const AddUser = ({
     email: "",
     website: "",
   };
-
+  const { users } = useSelector(
+    (store: { user: { users: IUser[] } }) => store.user,
+  );
   const [userValue, setUserValue] = useState<IUser>(initialValue);
-
+  const { addUser } = useActionCreator();
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const field = event.target.id;
     const value = event.target.value;
     setUserValue({ ...userValue, [field]: value });
   };
-
-  const addUser = async (event: FormEvent<HTMLFormElement>) => {
+  const addNewUser = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const responseData = await http.post("/users", userValue);
-    if (responseData.data) {
-      setUsers([...users, responseData.data]);
-      setUserValue(initialValue);
-    }
+    addUser(userValue);
+    setUserValue(initialValue);
   };
   return (
-    <form onSubmit={(event) => addUser(event)}>
-      {Object.keys(USERS[0]).map((field) => {
+    <form onSubmit={(event) => addNewUser(event)}>
+      {Object.keys(users[0]).map((field) => {
         if (field === "company" || field === "id" || field === "address")
           return;
         // Object.keys(USERS[0].company).map(companyField => <input placeholder={companyField}/>)
