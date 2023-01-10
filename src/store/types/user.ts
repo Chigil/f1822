@@ -20,6 +20,7 @@ export interface IUser {
 
 export interface UserState {
   users: IUser[];
+  error?: boolean;
 }
 
 export enum UserActionType {
@@ -31,6 +32,7 @@ export enum UserActionType {
 interface GetUserAction {
   type: UserActionType.GET_USERS;
   payload: IUser[];
+  error: boolean;
 }
 
 interface DeleteUserAction {
@@ -41,6 +43,7 @@ interface DeleteUserAction {
 interface AddUser {
   type: UserActionType.ADD_USER;
   payload: IUser[];
+  error: boolean;
 }
 
 export type UserAction = GetUserAction | DeleteUserAction | AddUser;

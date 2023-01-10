@@ -8,19 +8,22 @@ import { getAllUsers } from "../store/action-creator/user";
 import { useActionCreator } from "../hooks/useActionCreator";
 import { IUser } from "../store/types/user";
 import AddUser from "../components/Users/AddUser";
+import { useToast } from "../components/Toast/ToastProvider";
 
 const Users = () => {
-  // const [users, setUsers] = useState<IUser[]>([]);
-  const { users } = useSelector(
-    (store: { user: { users: IUser[] } }) => store.user,
+  const { users, error } = useSelector(
+    (store: { user: { users: IUser[] , error: false }}) => store.user,
   );
+  console.log(error);
   const { getAllUsers } = useActionCreator();
+  const { toast } = useToast();
   const [search, setSearch] = useState<string>("");
   const [isShowEdit, setIsShowEdit] = useState<boolean>(false);
   const searchedUsers = useSearch(users, search, "name");
   useEffect(() => {
     getAllUsers();
-  }, []);
+    if (error) return toast('Error get All users', 'error');
+  }, [error]);
   return (
     <div className="row row-cols-1 row-cols-md-3 g-4 mt-5">
       <h1 className="text-center w-100">Page for all users</h1>

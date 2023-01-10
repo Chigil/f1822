@@ -4,8 +4,10 @@ import { useParams } from "react-router-dom";
 
 import Posts from "./Posts";
 import { IUser } from "../store/types/user";
+import { useToast } from "../components/Toast/ToastProvider";
 
 const User = () => {
+  const { toast } = useToast();
   const [user, setUser] = useState<IUser>({
     id: 0,
     name: "",
@@ -20,9 +22,14 @@ const User = () => {
     getAllUserDataById();
   }, []);
   const getAllUserDataById = async () => {
-    const userData = await http.get(`/users/${userId}`);
-    setUser(userData.data);
-    //get posts comments
+    try {
+      const userData = await http.get(`/users/${userId}`);
+      setUser(userData.data);
+      toast('User loaded', 'success');
+    } catch (err) {
+      console.log(err);
+      toast('Error get user', 'error');
+    }
   };
   const updateUserInfo = async () => {
     const newUser = await http.put(`/users/${userId}`, user);

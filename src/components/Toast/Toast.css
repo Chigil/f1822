@@ -1,0 +1,24 @@
+.toast-up {
+    display: flex;
+    top: 1rem;
+    left: 1rem;
+    border-radius: 0;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.toast-up-container {
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.toast-up-container .toast-up {
+    left: 0;
+}
+
+.toast-up-fade-out {
+    opacity: 0;
+    transform: translateX(-100%);
+}

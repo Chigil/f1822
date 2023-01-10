@@ -9,9 +9,10 @@ export const getAllUsers = () => {
     try {
       const responseData = await http.get("/users");
       const users = responseData.data;
-      dispatch({ type: GET_USERS, payload: users });
+      dispatch({ type: GET_USERS, payload: users, error: false });
     } catch (err) {
-      alert(err);
+      dispatch({ type: GET_USERS, payload: [], error: true });
+      throw 'Error get all user';
     }
   };
 };
@@ -19,11 +20,12 @@ export const getAllUsers = () => {
 export const addUser = (user: IUser) => {
   return async (dispatch: Dispatch<UserAction>) => {
     const responseData = await http.post("/users", user);
-    console.log(responseData);
     try {
-      dispatch({ type: ADD_USER, payload: responseData.data });
+      dispatch({ type: ADD_USER, payload: responseData.data, error: false });
     } catch (err) {
-      alert(err);
+      console.log(err);
+      dispatch({ type: ADD_USER, payload: [], error: true });
+      throw 'Error for added User';
     }
   };
 };
