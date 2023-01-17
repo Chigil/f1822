@@ -40,7 +40,14 @@ const AddUser = () => {
             required
             id={field}
             type={field === "email" ? "email" : "text"}
-            value={userValue[field as keyof Pick<IUser, "name" | "username" | "phone" | "email" | "website">]}
+            value={
+              userValue[
+                field as keyof Pick<
+                  IUser,
+                  "name" | "username" | "phone" | "email" | "website"
+                >
+              ]
+            }
             placeholder={`Input user ${field}`}
             onChange={(event) => onChange(event)}
           />

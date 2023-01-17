@@ -19,10 +19,10 @@ const Posts = ({ userId = 0 }: { userId?: number }) => {
           setPage(page + 1);
         }
       };
-        observer.current = new IntersectionObserver(callback);
-        if (trigger.current) {
-          observer.current.observe(trigger.current);
-        }
+      observer.current = new IntersectionObserver(callback);
+      if (trigger.current) {
+        observer.current.observe(trigger.current);
+      }
     }
   }, [loading]);
 

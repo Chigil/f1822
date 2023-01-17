@@ -12,7 +12,7 @@ import { useToast } from "../components/Toast/ToastProvider";
 
 const Users = () => {
   const { users, error } = useSelector(
-    (store: { user: { users: IUser[] , error: false }}) => store.user,
+    (store: { user: { users: IUser[]; error: false } }) => store.user,
   );
   console.log(error);
   const { getAllUsers } = useActionCreator();
@@ -22,7 +22,7 @@ const Users = () => {
   const searchedUsers = useSearch(users, search, "name");
   useEffect(() => {
     getAllUsers();
-    if (error) return toast('Error get All users', 'error');
+    if (error) return toast("Error get All users", "error");
   }, [error]);
   return (
     <div className="row row-cols-1 row-cols-md-3 g-4 mt-5">
@@ -34,9 +34,7 @@ const Users = () => {
         >
           Show Form for Add user
         </button>
-        {isShowEdit && (
-          <AddUser />
-        )}
+        {isShowEdit && <AddUser />}
       </div>
       <SearchUsers setSearch={setSearch} />
       {users.length ? <UserCards users={searchedUsers} /> : <Loader />}

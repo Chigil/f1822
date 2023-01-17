@@ -12,7 +12,7 @@ export const getAllUsers = () => {
       dispatch({ type: GET_USERS, payload: users, error: false });
     } catch (err) {
       dispatch({ type: GET_USERS, payload: [], error: true });
-      throw 'Error get all user';
+      throw "Error get all user";
     }
   };
 };
@@ -25,11 +25,10 @@ export const addUser = (user: IUser) => {
     } catch (err) {
       console.log(err);
       dispatch({ type: ADD_USER, payload: [], error: true });
-      throw 'Error for added User';
+      throw "Error for added User";
     }
   };
 };
-
 
 export const deleteUser = (id: number) => {
   return async (dispatch: Dispatch<UserAction>) => {

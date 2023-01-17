@@ -25,10 +25,10 @@ const User = () => {
     try {
       const userData = await http.get(`/users/${userId}`);
       setUser(userData.data);
-      toast('User loaded', 'success');
+      toast("User loaded", "success");
     } catch (err) {
       console.log(err);
-      toast('Error get user', 'error');
+      toast("Error get user", "error");
     }
   };
   const updateUserInfo = async () => {

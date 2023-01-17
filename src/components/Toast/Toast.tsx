@@ -2,10 +2,10 @@ import React, { useRef } from "react";
 import "./Toast.css";
 
 const Toast = ({
-                 data,
-                 deleteToast,
-                 id,
-               }: {
+  data,
+  deleteToast,
+  id,
+}: {
   data: any;
   deleteToast: (id: number) => void;
   id: number;

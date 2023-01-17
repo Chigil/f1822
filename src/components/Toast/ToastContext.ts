@@ -1,6 +1,6 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
-export type ToastView = 'error' | 'success' | 'info' | 'warning';
+export type ToastView = "error" | "success" | "info" | "warning";
 export type ToastContextType = {
   toast: (
     message: string,

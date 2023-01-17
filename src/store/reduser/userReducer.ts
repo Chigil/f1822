@@ -12,7 +12,7 @@ export const userReducer = (
     case ADD_USER:
       return {
         users: [...state.users, action.payload],
-        error: action.error
+        error: action.error,
       };
     case DELETE_USER_BY_ID:
       return {
